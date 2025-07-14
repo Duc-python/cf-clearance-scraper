@@ -27,6 +27,7 @@ docker run -d -p 3000:3000 \
 -e PORT=3000 \
 -e browserLimit=20 \
 -e timeOut=60000 \
+-e HEADLESS=true \
 zfcsoftware/cf-clearance-scraper:latest
 ```
 
@@ -177,6 +178,12 @@ You can add authorisation by changing the process.env.authToken variable. If thi
 
 ### How Do I Set The Timeout Time?
 You can give the variable process.env.timeOut a value in milliseconds. The default is 60000.
+
+### How Do I Run The Browser Headlessly?
+Set the environment variable `HEADLESS` to `true` to run without opening a visible browser window.
+
+### Can I Specify A Custom User Agent?
+Yes. Pass the `userAgent` field in the JSON body of your request and the browser will use it when visiting the page.
 
 ## Disclaimer of Liability
 This repository was created purely for testing and training purposes. The user is responsible for any prohibited liability that may arise from its use.

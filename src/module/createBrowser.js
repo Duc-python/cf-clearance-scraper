@@ -8,7 +8,8 @@ async function createBrowser() {
         // console.log('Launching the browser...');
 
         const { browser } = await connect({
-            headless: false,
+            // run in headless mode when HEADLESS environment variable is "true"
+            headless: process.env.HEADLESS === 'true',
             turnstile: true,
             connectOption: { defaultViewport: null },
             disableXvfb: false,

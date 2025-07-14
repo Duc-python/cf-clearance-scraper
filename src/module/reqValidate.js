@@ -30,6 +30,9 @@ const schema = {
         },
         "siteKey": {
             "type": "string"
+        },
+        "userAgent": {
+            "type": "string"
         }
     },
     "required": ["mode", "url"],

@@ -1,4 +1,4 @@
-function getSource({ url, proxy }) {
+function getSource({ url, proxy, userAgent }) {
     return new Promise(async (resolve, reject) => {
 
         if (!url) return reject('Missing url parameter')
@@ -18,6 +18,7 @@ function getSource({ url, proxy }) {
 
         try {
             const page = await context.newPage();
+            if (userAgent) await page.setUserAgent(userAgent);
             await page.setRequestInterception(true);
             page.on('request', async (request) => {
                 try {

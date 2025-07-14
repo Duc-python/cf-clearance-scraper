@@ -1,4 +1,8 @@
-function solveTurnstileMin({ url, proxy }) {
+const fs = require('fs')
+const path = require('path')
+const callbackTemplate = fs.readFileSync(path.join(__dirname, '../data/callback.html'), 'utf8')
+
+function solveTurnstileMin({ url, proxy, userAgent }) {
     return new Promise(async (resolve, reject) => {
 
         if (!url) return reject('Missing url parameter')
@@ -20,6 +24,7 @@ function solveTurnstileMin({ url, proxy }) {
 
         try {
             const page = await context.newPage();
+            if (userAgent) await page.setUserAgent(userAgent);
 
             const client = await page.target().createCDPSession()
             const interceptManager = new RequestInterceptionManager(client)
@@ -45,7 +50,7 @@ function solveTurnstileMin({ url, proxy }) {
                     resourceType: 'Document',
                     modifyResponse({ body }) {
                         return {
-                            body: String(body).replace('</body>', String(require('fs').readFileSync('./src/data/callback.html')) + '</body>')
+                            body: String(body).replace('</body>', callbackTemplate + '</body>')
                         }
                     },
                 }
